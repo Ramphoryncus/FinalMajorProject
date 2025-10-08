@@ -4,6 +4,9 @@ Chat history
 
 You said:
 Uploaded image
+<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/64556ec2-9d55-48d0-9fe0-eae7c361a0fa" />
+
+
 I have a new collaborative,, final major project for University. We want to program an audio radar (E.A.R.D.A.R. Environmental Audio
 Real-Time Detection And Ranging) for both Unity and Unreal engines to level the playing field for deaf and hard of hearing
 gamers so they get a visual representation of the audio
