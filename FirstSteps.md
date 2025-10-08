@@ -239,40 +239,41 @@ If audibility >= PerceptibilityThreshold (global or per-category), the sound qua
 Then apply masking: if a high-class event (Explosion) is present, temporarily down-weight classes it masks (Footsteps, Cloth).
 
 Simple attenuation shapes
-
+```
 Attenuation(d) = clamp01(1 - d/MaxEffectiveRange) (cheap & stable)
-
+```
 Or sample the engine’s actual attenuation curve if you can
 
 Occlusion
-
+```
 Do one physics line trace (player → source).
 If blocked: OcclusionMultiplier = 1 - OcclusionPenalty.
+```
 Bonus: stack multiple hits or material-specific penalties.
 
 3) HUD rules from the tags
 Icon choice = IconId from profile.
 
-Angle = bearing relative to camera forward; radius = normalized distance.
+> Angle = bearing relative to camera forward; radius = normalized distance.
 
-Opacity/scale = map from audibility (e.g., alpha = smoothstep(thresh, 1, audibility)).
+> Opacity/scale = map from audibility (e.g., alpha = smoothstep(thresh, 1, audibility)).
 
-Linger = keep icon for Persistence seconds after dropping below threshold.
+> Linger = keep icon for Persistence seconds after dropping below threshold.
 
-On-screen suppression = if the actor is visible & within N meters, fade/hide (your “no symbol when you’re already looking at the tank” rule).
+> On-screen suppression = if the actor is visible & within N meters, fade/hide (your “no symbol when you’re already looking at the tank” rule).
 
-Crowding = if >K icons, keep top Priority/audibility and cluster the rest.
+> Crowding = if >K icons, keep top Priority/audibility and cluster the rest.
 
 4) Flashbang/explosion adaptation
 Maintain a global HearingSensitivity (0.1–1.0):
-
+```
 On flashbang/explosion: HearingSensitivity -= k * eventIntensity (clamp to min)
+```
+> Recover with an exponential back to 1.0 over T seconds
 
-Recover with an exponential back to 1.0 over T seconds
+> Optionally show a large expanding ring on the radar during recovery
 
-Optionally show a large expanding ring on the radar during recovery
-
-Quiet classes (Footstep/Cloth) get extra down-weight during recovery
+> Quiet classes (Footstep/Cloth) get extra down-weight during recovery
 
 5) Minimal engine patterns
 Unreal (UE5)
