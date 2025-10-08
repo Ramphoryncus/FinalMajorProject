@@ -278,31 +278,31 @@ Quiet classes (Footstep/Cloth) get extra down-weight during recovery
 Unreal (UE5)
 Authoring
 
-Add Gameplay Tags to sound actors or USoundBase (Sound.Gunshot, Sound.Footstep…)
+> Add Gameplay Tags to sound actors or USoundBase (Sound.Gunshot, Sound.Footstep…)
 
-Create a UDataTable mapping tag → profile fields above
+> Create a UDataTable mapping tag → profile fields above
 
-Runtime
+> Runtime
 
 Each sound actor has an UEardarEmitterComponent with:
 
-reference to profile (from tag → DataTable)
+> reference to profile (from tag → DataTable)
 
-optional hook to sample actual amplitude (submix meter) if desired
+> optional hook to sample actual amplitude (submix meter) if desired
 
 AEardarManager ticks:
 
-Gather active emitters in range
+> Gather active emitters in range
 
-Line trace for occlusion
+> Line trace for occlusion
 
-Compute audibility
+> Compute audibility
 
-Apply masking & thresholds
+> Apply masking & thresholds
 
-Push filtered list to a UMG UEardarRadarWidget
+> Push filtered list to a UMG UEardarRadarWidget
 
-In the widget, convert world → polar → screen; pool UImage icons
+> In the widget, convert world → polar → screen; pool UImage icons
 
 (If you already pipe SFX into submixes, add a USubmixMeter for per-class loudness; otherwise the static BaseLoudness works fine.)
 
@@ -311,40 +311,41 @@ Authoring
 
 Create EardarSoundProfile : ScriptableObject (fields above)
 
-Component EardarEmitter : MonoBehaviour holding the profile + AudioSource
+> Component EardarEmitter : MonoBehaviour holding the profile + AudioSource
 
-Runtime
+> Runtime
 
-EardarManager (singleton):
+> EardarManager (singleton):
 
-Keeps a list of active EardarEmitters
+> Keeps a list of active EardarEmitters
 
 For each: compute distance, optional Physics.Linecast, optional GetOutputData RMS
 
-Compute audibility, masking, persistence
+> Compute audibility, masking, persistence
 
-Update a Canvas-based radar (pooled Image/RectTransform)
+> Update a Canvas-based radar (pooled Image/RectTransform)
 
-Hide/fade icons if EmitterIsVisibleToCamera && closeRange
+> Hide/fade icons if EmitterIsVisibleToCamera && closeRange
 
 6) Example profile table (excerpt)
-```
-Tag / Category	BaseLoudness	MaxRange(m)	OcclusionPenalty	Persistence	Priority	Masks
-Explosion	1.00	220	0.15	1.0s	100	Footstep, Cloth, VehicleIdle
-Gunshot	0.85	180	0.35	0.75s	80	Footstep
-VehicleEngine	0.70	250	0.25	0.5s	70	Footstep
-Footstep	0.30	35	0.60	0.35s	20	—
-VoiceShout	0.55	90	0.40	0.6s	40	Footstep
+
+| Tag / Category |	BaseLoudness	| MaxRange(m) |	OcclusionPenalty |	Persistence |	Priority |	Masks |
+|----------------|--------------|-------------|------------------|-------------|----------|-------|
+| Explosion |	1.00 |	220 |	0.15 |	1.0s |	100 |	Footstep, Cloth, VehicleIdle |
+| Gunshot |	0.85 |	180 |	0.35 |	0.75s |	80 |	Footstep |
+| VehicleEngine |	0.70 |	250 |	0.25 |	0.5s |	70 |	Footstep |
+| Footstep |	0.30 |	35 |	0.60 |	0.35s |	20 |	— |
+| VoiceShout |	0.55 |	90 |	0.40 |	0.6s |	40 |	Footstep |
 Set PerceptibilityThreshold ≈ 0.2 (tune per game), then user options let players raise/lower it.
-```
+
 8) Accessibility & tuning knobs
 Global scale for icon size/contrast; colorblind-safe palette
 
-Per-category on/off toggles (some players only want footsteps & gunshots)
+> Per-category on/off toggles (some players only want footsteps & gunshots)
 
-Threshold slider + distance ring spacing (e.g., 50/100/200 m)
+> Threshold slider + distance ring spacing (e.g., 50/100/200 m)
 
-“Minimal mode”: show only top N strongest events
+> “Minimal mode”: show only top N strongest events
 
 “Training mode”: briefly flash the real source outline to validate your heuristics
 
