@@ -100,6 +100,8 @@ Assign each sound asset a tag or SoundClass (e.g., “Footstep”, “Explosion�
 Store these in a DataTable to map:
 
 SoundClass | Icon | Color | Lifetime | Range
+
+
 3. Radar Visualization
 Create a UMG Widget (EARDAR_Radar).
 
