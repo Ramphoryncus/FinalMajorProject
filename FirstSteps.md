@@ -340,7 +340,10 @@ For each: compute distance, optional Physics.Linecast, optional GetOutputData RM
 | VehicleEngine |	0.70 |	250 |	0.25 |	0.5s |	70 |	Footstep |
 | Footstep |	0.30 |	35 |	0.60 |	0.35s |	20 |	— |
 | VoiceShout |	0.55 |	90 |	0.40 |	0.6s |	40 |	Footstep |
+
+---
 Set PerceptibilityThreshold ≈ 0.2 (tune per game), then user options let players raise/lower it.
+---
 
 8) Accessibility & tuning knobs
 Global scale for icon size/contrast; colorblind-safe palette
